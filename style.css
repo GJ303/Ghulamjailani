@@ -4,33 +4,35 @@
    Dark mode replaces them when <html data-theme="dark">.
    =================================================================== */
 :root {
-  --bg: #f6f7fb;
+  --bg: #f5f5f5;
   --surface: #ffffff;
-  --text: #2b3445;
-  --heading: #1b2a4a;
-  --muted: #667085;
-  --border: #e4e7ec;
-  --accent: #9b2335;
-  --accent-2: #2f5bd3;
-  --tag-bg: #eef1f7;
-  --blob-1: rgba(47, 91, 211, 0.18);
-  --blob-2: rgba(155, 35, 53, 0.16);
-  --shadow: 0 12px 30px rgba(27, 42, 74, 0.08);
+  --text: #5c5c5c;      /* grey writing */
+  --heading: #4a4a4a;   /* grey titles */
+  --muted: #767676;
+  --border: #c8c8c8;    /* grey outlines */
+  --accent: #5c5c5c;     /* main grey: buttons, dates, lines */
+  --accent-2: #8a8a8a;   /* lighter grey used in the photo ring */
+  --on-accent: #ffffff;  /* text on top of --accent */
+  --tag-bg: #eeeeee;
+  --blob-1: rgba(115, 115, 115, 0.12);
+  --blob-2: rgba(163, 163, 163, 0.12);
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
 [data-theme="dark"] {
-  --bg: #0d1220;
-  --surface: #161d2f;
-  --text: #d5dbe8;
-  --heading: #f1f4fa;
-  --muted: #95a0b8;
-  --border: #253049;
-  --accent: #ef6b7f;
-  --accent-2: #7aa2ff;
-  --tag-bg: #1f2940;
-  --blob-1: rgba(122, 162, 255, 0.16);
-  --blob-2: rgba(239, 107, 127, 0.14);
-  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --bg: #121212;
+  --surface: #1c1c1c;
+  --text: #a8a8a8;
+  --heading: #c4c4c4;
+  --muted: #8c8c8c;
+  --border: #444444;
+  --accent: #a8a8a8;
+  --accent-2: #6b6b6b;
+  --on-accent: #121212;
+  --tag-bg: #262626;
+  --blob-1: rgba(255, 255, 255, 0.05);
+  --blob-2: rgba(255, 255, 255, 0.04);
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
 
 /* ===================================================================
@@ -210,14 +212,14 @@ a {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+  background: var(--muted);
+  box-shadow: 0 0 0 0 rgba(115, 115, 115, 0.6);
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  70%  { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+  70%  { box-shadow: 0 0 0 8px rgba(115, 115, 115, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(115, 115, 115, 0); }
 }
 
 .eyebrow {
@@ -234,10 +236,7 @@ a {
 
 /* text filled with a color gradient */
 .gradient-text {
-  background: linear-gradient(90deg, var(--heading), var(--accent-2) 55%, var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--heading);
 }
 
 .subtitle {
@@ -265,8 +264,8 @@ a {
   font-weight: 600;
   padding: 0.25rem 0.75rem;
   border-radius: 6px;
-  color: var(--accent-2);
-  background: color-mix(in srgb, var(--accent-2) 12%, transparent);
+  color: var(--text);
+  background: var(--tag-bg);
 }
 
 .hero-buttons {
@@ -331,9 +330,9 @@ a {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 70%, var(--accent-2)));
-  color: #fff;
-  box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow);
 }
 
 .btn-outline {
@@ -342,7 +341,7 @@ a {
 }
 
 .btn-outline:hover {
-  border-color: var(--heading);
+  border-color: var(--muted);
 }
 
 /* ===================================================================
@@ -367,7 +366,7 @@ a {
   width: 60px;
   height: 4px;
   margin-top: 0.5rem;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  background: var(--accent);
   border-radius: 2px;
 }
 
@@ -411,10 +410,7 @@ a {
   display: block;
   font-size: 2.2rem;
   line-height: 1.2;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--heading);
 }
 
 .stat span {
@@ -438,7 +434,7 @@ a {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(var(--accent), var(--accent-2), transparent);
+  background: linear-gradient(var(--border), var(--border) 85%, transparent);
 }
 
 .job {
@@ -454,7 +450,7 @@ a {
 .job:hover {
   transform: translateX(6px);
   box-shadow: var(--shadow);
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-color: var(--muted);
 }
 
 /* the dot on the timeline line */
@@ -475,8 +471,8 @@ a {
   display: inline-block;
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--muted);
+  background: var(--tag-bg);
   padding: 0.15rem 0.6rem;
   border-radius: 6px;
   margin-bottom: 0.4rem;
@@ -503,7 +499,7 @@ a {
 }
 
 .job li::marker {
-  color: var(--accent);
+  color: var(--muted);
 }
 
 /* ===================================================================
@@ -532,8 +528,8 @@ a {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  height: 3px;
+  background: var(--border);
 }
 
 .card:hover {
@@ -568,7 +564,14 @@ a {
 
 .tags li:hover {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
+}
+
+/* emojis are colorful, so turn them grey */
+.emoji,
+.card-icon,
+.toggle span {
+  filter: grayscale(1);
 }
 
 /* ===================================================================
