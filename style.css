@@ -584,6 +584,11 @@ a {
   text-align: center;
 }
 
+.cv {
+  text-align: center;
+}
+
+.cv h2::after,
 .contact h2::after {
   margin: 0.5rem auto 0;
 }

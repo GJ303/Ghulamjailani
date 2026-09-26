@@ -23,6 +23,12 @@ const FRENCH = {
   "hero.experience": "Voir mon parcours",
   "hero.location": "Lausanne, Suisse",
 
+  // CV
+  "cv.title": "Mon CV",
+  "cv.text": "Consultez ou téléchargez mon CV complet (PDF).",
+  "cv.view": "Voir le CV",
+  "cv.download": "Télécharger le CV",
+
   // About
   "about.title": "À propos",
   "about.text": "Professionnel des télécommunications avec plus de 12 ans d'expérience en communications sans fil, IoT, test de smartphones, validation d'appareils mobiles et optimisation de réseaux RF. J'ai travaillé avec des clients internationaux en Europe, au Moyen-Orient et en Asie, en fournissant des solutions de test et de performance réseau de haute qualité.",
