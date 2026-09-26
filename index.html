@@ -7,13 +7,12 @@
   <title data-i18n="meta.title">Ghulam Jellani | Wireless &amp; 5G Test Engineer</title>
   <meta name="description" content="Portfolio of Ghulam Jellani, telecommunications engineer with 12+ years in 5G/LTE testing, mobile device validation and RF optimization.">
   <link rel="stylesheet" href="style.css">
-  <!-- Pick light or dark mode BEFORE the page draws, so it doesn't flash white -->
+  <!-- Pick light or dark mode BEFORE the page draws, so it doesn't flash -->
   <script>
     document.documentElement.classList.add("js"); // lets the CSS know JavaScript is on
     try {
       var saved = localStorage.getItem("theme");
-      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+      document.documentElement.dataset.theme = saved || "dark"; // dark grey/black by default
     } catch (e) {}
   </script>
 </head>
