@@ -108,5 +108,6 @@ const FRENCH = {
 
   // Contact
   "contact.title": "Me contacter",
-  "contact.text": "Ouvert aux opportunités en 5G, test d'appareils et ingénierie RF."
+  "contact.text": "Ouvert aux opportunités en 5G, test d'appareils et ingénierie RF.",
+  "cv.download": "Télécharger mon CV"
 };
