@@ -1,9 +1,13 @@
-/* Colors are stored in variables so you can change the whole theme in one place */
+/* Colors are stored in variables so you can change the whole theme in one place.
+   Navy + burgundy match the suit and tie in the profile photo. */
 :root {
-  --bg: #0f172a;
-  --card: #1e293b;
-  --text: #e2e8f0;
-  --accent: #38bdf8;
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --navy: #1b2a4a;
+  --accent: #9b2335;
+  --text: #2b3445;
+  --muted: #667085;
+  --border: #e4e7ec;
 }
 
 * {
@@ -14,6 +18,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 70px; /* so the sticky navbar doesn't cover section titles */
 }
 
 body {
@@ -28,143 +33,351 @@ a {
   text-decoration: none;
 }
 
-/* Navigation bar */
+/* ---------- Navigation bar ---------- */
 .navbar {
   position: sticky;
   top: 0;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: var(--bg);
-  border-bottom: 1px solid var(--card);
+  background: var(--navy);
 }
 
 .logo {
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 800;
+  color: #fff;
+}
+
+.logo span {
+  color: #e8a0ab;
 }
 
 .navbar nav a {
-  color: var(--text);
+  color: #d6dcea;
   margin-left: 1.5rem;
+  font-size: 0.95rem;
 }
 
 .navbar nav a:hover {
-  color: var(--accent);
+  color: #fff;
 }
 
-/* Hero */
+/* ---------- Hero ---------- */
 .hero {
+  max-width: 1000px;
+  margin: 0 auto;
   min-height: 80vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  padding: 2rem;
+  justify-content: space-between;
+  gap: 3rem;
+  padding: 3rem 2rem;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .hero h1 {
-  font-size: 2.8rem;
-}
-
-.highlight {
-  color: var(--accent);
+  font-size: 3rem;
+  color: var(--navy);
+  line-height: 1.1;
+  margin: 0.3rem 0 0.6rem;
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  margin: 1rem 0 2rem;
-  opacity: 0.8;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
 }
 
+.tagline {
+  color: var(--muted);
+  margin: 0.8rem 0 1.8rem;
+  max-width: 480px;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.location {
+  margin-top: 1.5rem;
+  color: var(--muted);
+}
+
+/* The photo is cropped into a circle with object-fit + border-radius */
+.profile {
+  width: 300px;
+  height: 300px;
+  flex-shrink: 0;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 50%;
+  border: 6px solid var(--surface);
+  box-shadow: 0 0 0 3px var(--navy), 0 20px 40px rgba(27, 42, 74, 0.25);
+}
+
+/* ---------- Buttons ---------- */
 .btn {
-  padding: 0.8rem 1.8rem;
-  border: 2px solid var(--accent);
+  display: inline-block;
+  padding: 0.75rem 1.6rem;
   border-radius: 8px;
-  transition: 0.3s;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
-.btn:hover {
+.btn-primary {
   background: var(--accent);
-  color: var(--bg);
+  color: #fff;
 }
 
-/* Sections */
+.btn-primary:hover {
+  background: #7d1b2a;
+}
+
+.btn-outline {
+  border: 2px solid var(--navy);
+  color: var(--navy);
+}
+
+.btn-outline:hover {
+  background: var(--navy);
+  color: #fff;
+}
+
+/* ---------- Sections ---------- */
 .section {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 4rem 2rem;
 }
 
 .section h2 {
   font-size: 2rem;
-  margin-bottom: 1.5rem;
+  color: var(--navy);
+  margin-bottom: 2rem;
+}
+
+/* little red line under each section title */
+.section h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin-top: 0.5rem;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  max-width: 760px;
+}
+
+/* ---------- Stats ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.2rem;
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  font-size: 2rem;
   color: var(--accent);
 }
 
-/* Skills */
-.skills {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
+.stat span {
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
-.skills li {
-  background: var(--card);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+/* ---------- Experience timeline ---------- */
+.timeline {
+  border-left: 3px solid var(--border);
+  padding-left: 2rem;
 }
 
-/* Project cards */
+.job {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+/* the dot on the timeline line */
+.job::before {
+  content: "";
+  position: absolute;
+  left: calc(-2rem - 9px);
+  top: 0.35rem;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+}
+
+.date {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.job h3,
+.card h3 {
+  color: var(--navy);
+  font-size: 1.15rem;
+}
+
+.company {
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.job ul {
+  padding-left: 1.2rem;
+}
+
+.job li {
+  margin-bottom: 0.2rem;
+}
+
+/* ---------- Cards (skills + education) ---------- */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
 .card {
-  background: var(--card);
-  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  transition: transform 0.3s;
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(27, 42, 74, 0.1);
 }
 
 .card h3 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
-.card p {
-  margin-bottom: 1rem;
-  opacity: 0.8;
+.tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tags li {
+  background: #eef1f7;
+  color: var(--navy);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+/* ---------- Contact ---------- */
+.contact {
+  text-align: center;
+}
+
+.contact h2::after {
+  margin: 0.5rem auto 0;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 footer {
   text-align: center;
   padding: 2rem;
-  border-top: 1px solid var(--card);
-  opacity: 0.7;
+  background: var(--navy);
+  color: #d6dcea;
 }
 
-/* Mobile: make things smaller on narrow screens */
-@media (max-width: 600px) {
+/* ---------- Mobile: stack things on narrow screens ---------- */
+@media (max-width: 760px) {
   .navbar {
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem;
+    gap: 0.4rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .navbar nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .navbar nav a {
-    margin: 0 0.6rem;
+    margin: 0 0.5rem;
+  }
+
+  html {
+    scroll-padding-top: 100px;
+  }
+
+  .hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 2rem;
+    padding: 2rem 1rem;
   }
 
   .hero h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
+  }
+
+  .tagline {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .profile {
+    width: 200px;
+    height: 200px;
+  }
+
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-links .btn {
+    word-break: break-all;
   }
 }

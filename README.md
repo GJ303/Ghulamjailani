@@ -1,6 +1,8 @@
-# Ghulam Jailani — Portfolio
+# Ghulam Jellani — Portfolio
 
-A simple personal portfolio website built with **HTML**, **CSS** and **JavaScript**.
+Personal portfolio of **Ghulam Jellani**, Test Engineer in Wireless & Mobile Networks (5G / LTE, device testing, RF optimization).
+
+It is a simple website built with **HTML**, **CSS** and **JavaScript**.
 No frameworks and no installs: open `index.html` in a browser and it works.
 
 ---
@@ -12,7 +14,8 @@ Ghulamjailani/
 ├── index.html   → the content (text, sections, links)
 ├── style.css    → the design (colors, layout, fonts)
 ├── script.js    → small interactive parts
-├── images/      → put photos / project screenshots here
+├── images/
+│   └── profile.jpg → his profile photo
 └── README.md    → this guide
 ```
 
@@ -55,20 +58,23 @@ Create `index.html`, `style.css`, `script.js` and an `images/` folder.
 Read the comments in `index.html` — each section is labelled `STEP 1`, `STEP 2`… so you can see what each part does.
 
 ### Step 5 — Personalize it
-Edit these parts in `index.html`:
-| What | Where |
+The content comes from his CV. Each section of `index.html` has a `STEP` comment:
+| What | Where in `index.html` |
 |------|-------|
-| Name | `<title>`, the hero `<h1>`, the footer |
-| Job title | `<p class="subtitle">` |
-| About text | `#about` section |
-| Skills | each `<li>` in `#skills` |
-| Projects | copy/paste a `<div class="card">…</div>` block for each project |
-| Contact | email and GitHub links in `#contact` |
+| Name, job title, location | Hero section (`STEP 3`) |
+| Summary + numbers (12+, 6, 4, MSc) | About section (`STEP 4`) |
+| Jobs | Experience (`STEP 5`) — copy a `<div class="job">…</div>` block to add a job |
+| Skills | Skills cards (`STEP 6`) — each `<li>` is one tag |
+| Degrees | Education (`STEP 7`) |
+| Email, LinkedIn | Contact (`STEP 8`) |
 
-Change the colors in one place — the `:root` block at the top of `style.css`.
+**Colors:** change them in one place, the `:root` block at the top of `style.css`
+(navy `--navy` and burgundy `--accent` were picked to match the suit and tie in the photo).
 
-To add a photo: put it in `images/` (e.g. `images/profile.jpg`) and add
-`<img src="images/profile.jpg" alt="Photo of Ghulam Jailani">` in the hero section.
+**Photo:** replace `images/profile.jpg` with a new photo using the same file name.
+CSS (`object-fit: cover` + `border-radius: 50%`) crops it into a circle automatically.
+
+**To do:** replace the LinkedIn link in the Contact section with his real profile URL.
 
 ### Step 6 — Save your work with Git (commit) and upload it (push)
 ```bash
@@ -100,7 +106,6 @@ Repeat this every time you make changes. Think of a **commit** as a save point a
 | **Pull Request (PR)** | Ask to merge one branch into another |
 
 ## 🚀 Ideas for next steps
-- Add a profile photo and project screenshots
 - Add a "Download CV" button (`<a href="cv.pdf" download>`)
 - Add a light/dark mode toggle in `script.js`
 - Buy a custom domain and connect it in *Settings → Pages*
