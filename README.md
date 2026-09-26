@@ -13,7 +13,8 @@ No frameworks and no installs: open `index.html` in a browser and it works.
 Ghulamjailani/
 ├── index.html   → the content (text, sections, links)
 ├── style.css    → the design (colors, layout, fonts)
-├── script.js    → small interactive parts
+├── script.js    → buttons and animations (language, light/dark, fade-in)
+├── translations.js → all the French text
 ├── images/
 │   └── profile.jpg → his profile photo
 └── README.md    → this guide
@@ -68,8 +69,22 @@ The content comes from his CV. Each section of `index.html` has a `STEP` comment
 | Degrees | Education (`STEP 7`) |
 | Email, LinkedIn | Contact (`STEP 8`) |
 
-**Colors:** change them in one place, the `:root` block at the top of `style.css`
-(navy `--navy` and burgundy `--accent` were picked to match the suit and tie in the photo).
+**Colors:** they are variables at the top of `style.css`.
+`:root { ... }` holds the **light mode** colors and `[data-theme="dark"] { ... }` holds the **dark mode** colors.
+Change a color in both blocks to keep the two modes matching.
+
+**French / English:** the English text is written in `index.html`. Every translatable element has a
+`data-i18n="key"` attribute, for example `<h2 data-i18n="about.title">About Me</h2>`.
+The French text for that key is in `translations.js`: `"about.title": "À propos",`.
+- To change an English sentence, edit `index.html`.
+- To change a French sentence, edit `translations.js`.
+- To add new text, give it a new `data-i18n` key in `index.html` **and** add the same key in `translations.js`.
+
+**How the buttons work (`script.js`):**
+- 🌙/☀️ sets `data-theme="dark"` or `"light"` on the `<html>` tag, and the CSS changes the colors.
+- FR/EN swaps the text of every `[data-i18n]` element.
+- Both choices are saved in the browser (`localStorage`), so the page remembers them next time.
+- If the visitor's computer uses dark mode or French, the site starts that way automatically.
 
 **Photo:** replace `images/profile.jpg` with a new photo using the same file name.
 CSS (`object-fit: cover` + `border-radius: 50%`) crops it into a circle automatically.

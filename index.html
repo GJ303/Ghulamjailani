@@ -4,133 +4,161 @@
   <!-- STEP 1: Basic page setup -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ghulam Jellani | Wireless &amp; 5G Test Engineer</title>
+  <title data-i18n="meta.title">Ghulam Jellani | Wireless &amp; 5G Test Engineer</title>
   <meta name="description" content="Portfolio of Ghulam Jellani, telecommunications engineer with 12+ years in 5G/LTE testing, mobile device validation and RF optimization.">
   <link rel="stylesheet" href="style.css">
+  <!-- Pick light or dark mode BEFORE the page draws, so it doesn't flash white -->
+  <script>
+    document.documentElement.classList.add("js"); // lets the CSS know JavaScript is on
+    try {
+      var saved = localStorage.getItem("theme");
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+    } catch (e) {}
+  </script>
 </head>
 <body>
 
-  <!-- STEP 2: Navigation bar -->
+  <!-- STEP 2: Navigation bar + language and theme buttons -->
   <header class="navbar">
     <a href="#home" class="logo">G<span>J</span></a>
     <nav>
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#experience" data-i18n="nav.experience">Experience</a>
+      <a href="#skills" data-i18n="nav.skills">Skills</a>
+      <a href="#education" data-i18n="nav.education">Education</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
+    <div class="toggles">
+      <button id="lang-toggle" class="toggle" aria-label="Changer la langue en français">FR</button>
+      <button id="theme-toggle" class="toggle" aria-label="Switch light / dark mode">
+        <span class="icon-moon">🌙</span><span class="icon-sun">☀️</span>
+      </button>
+    </div>
   </header>
 
   <!-- STEP 3: Hero section (photo + name + title) -->
   <section id="home" class="hero">
+    <!-- two blurry colored circles floating in the background -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
     <div class="hero-text">
-      <p class="eyebrow">Hello, I'm</p>
-      <h1>Ghulam Jellani</h1>
-      <p class="subtitle">Test Engineer · Wireless &amp; Mobile Networks</p>
-      <p class="tagline">
+      <p class="badge"><span class="dot"></span><span data-i18n="hero.badge">Open to opportunities</span></p>
+      <p class="eyebrow" data-i18n="hero.hello">Hello, I'm</p>
+      <h1 class="gradient-text">Ghulam Jellani</h1>
+      <p class="subtitle" data-i18n="hero.title">Test Engineer · Wireless &amp; Mobile Networks</p>
+      <p class="tagline" data-i18n="hero.tagline">
         5G / LTE field verification, mobile device validation and RF network optimization.
       </p>
+      <ul class="hero-chips">
+        <li>5G NR</li><li>LTE</li><li>VoNR</li><li>VoLTE</li><li>RF</li><li>IoT</li>
+      </ul>
       <div class="hero-buttons">
-        <a href="#contact" class="btn btn-primary">Contact Me</a>
-        <a href="#experience" class="btn btn-outline">View Experience</a>
+        <a href="#contact" class="btn btn-primary" data-i18n="hero.contact">Contact Me</a>
+        <a href="#experience" class="btn btn-outline" data-i18n="hero.experience">View Experience</a>
       </div>
-      <p class="location">📍 Lausanne, Switzerland</p>
+      <p class="location">📍 <span data-i18n="hero.location">Lausanne, Switzerland</span></p>
     </div>
-    <img class="profile" src="images/profile.jpg" alt="Portrait of Ghulam Jellani">
+
+    <!-- the photo sits inside a spinning colored ring -->
+    <div class="photo-ring">
+      <img class="profile" src="images/profile.jpg" alt="Portrait of Ghulam Jellani">
+    </div>
   </section>
 
   <!-- STEP 4: About section with quick stats -->
-  <section id="about" class="section">
-    <h2>About Me</h2>
-    <p class="about-text">
+  <section id="about" class="section reveal">
+    <h2 data-i18n="about.title">About Me</h2>
+    <p class="about-text" data-i18n="about.text">
       Telecommunications professional with over 12 years of experience in wireless
       communications, IoT, smartphone testing, mobile device validation and RF network
       optimization. I have worked with international clients across Europe, the Middle East
       and Asia, delivering high-quality testing and network performance solutions.
     </p>
     <div class="stats">
-      <div class="stat"><strong>12+</strong><span>Years of experience</span></div>
-      <div class="stat"><strong>6</strong><span>Companies</span></div>
-      <div class="stat"><strong>4</strong><span>Countries</span></div>
-      <div class="stat"><strong>MSc</strong><span>Wireless &amp; RF Systems</span></div>
+      <div class="stat"><strong>12+</strong><span data-i18n="stat.years">Years of experience</span></div>
+      <div class="stat"><strong>6</strong><span data-i18n="stat.companies">Companies</span></div>
+      <div class="stat"><strong>4</strong><span data-i18n="stat.countries">Countries</span></div>
+      <div class="stat"><strong>MSc</strong><span data-i18n="stat.msc">Wireless &amp; RF Systems</span></div>
     </div>
   </section>
 
-  <!-- STEP 5: Experience timeline (newest first). Copy a "job" block to add one. -->
-  <section id="experience" class="section">
-    <h2>Experience</h2>
+  <!-- STEP 5: Experience timeline (newest first). Copy a "job" block to add one.
+       Remember to add its French text in translations.js too! -->
+  <section id="experience" class="section reveal">
+    <h2 data-i18n="exp.title">Experience</h2>
     <div class="timeline">
 
       <div class="job">
-        <span class="date">Mar 2025 – Present</span>
-        <h3>Test Engineer – Wireless &amp; Mobile Networks</h3>
-        <p class="company">Marquistech Sarl (Apple Project) · Switzerland</p>
+        <span class="date" data-i18n="job1.date">Mar 2025 – Present</span>
+        <h3 data-i18n="job1.title">Test Engineer – Wireless &amp; Mobile Networks</h3>
+        <p class="company" data-i18n="job1.company">Marquistech Sarl (Apple Project) · Switzerland</p>
         <ul>
-          <li>Data, voice, functional, KPI and sanity testing on iOS devices.</li>
-          <li>Network and chipset validation: LTE-CA, VoLTE, 5G NR, VoNR, EN-DC.</li>
-          <li>Emergency call, application and user-centric test cases.</li>
-          <li>Log analysis, defect reporting and Radar management.</li>
+          <li data-i18n="job1.b1">Data, voice, functional, KPI and sanity testing on iOS devices.</li>
+          <li data-i18n="job1.b2">Network and chipset validation: LTE-CA, VoLTE, 5G NR, VoNR, EN-DC.</li>
+          <li data-i18n="job1.b3">Emergency call, application and user-centric test cases.</li>
+          <li data-i18n="job1.b4">Log analysis, defect reporting and Radar management.</li>
         </ul>
       </div>
 
       <div class="job">
-        <span class="date">May 2023 – Oct 2024</span>
-        <h3>5G Field Verification Engineer</h3>
-        <p class="company">Nokia · Finland</p>
+        <span class="date" data-i18n="job2.date">May 2023 – Oct 2024</span>
+        <h3 data-i18n="job2.title">5G Field Verification Engineer</h3>
+        <p class="company" data-i18n="job2.company">Nokia · Finland</p>
         <ul>
-          <li>Field verification for LTE and 5G NR: DL/UL throughput, interference, VoNR MOS, ping.</li>
-          <li>Chipset testing on Qualcomm and MediaTek platforms.</li>
-          <li>Configuration changes on network sites, log analysis and technical reports.</li>
-          <li>Trunk activities and JIRA task management.</li>
+          <li data-i18n="job2.b1">Field verification for LTE and 5G NR: DL/UL throughput, interference, VoNR MOS, ping.</li>
+          <li data-i18n="job2.b2">Chipset testing on Qualcomm and MediaTek platforms.</li>
+          <li data-i18n="job2.b3">Configuration changes on network sites, log analysis and technical reports.</li>
+          <li data-i18n="job2.b4">Trunk activities and JIRA task management.</li>
         </ul>
       </div>
 
       <div class="job">
-        <span class="date">Oct 2021 – Oct 2022</span>
-        <h3>Device Test Engineer</h3>
-        <p class="company">Huawei · Saudi Arabia</p>
+        <span class="date" data-i18n="job3.date">Oct 2021 – Oct 2022</span>
+        <h3 data-i18n="job3.title">Device Test Engineer</h3>
+        <p class="company" data-i18n="job3.company">Huawei · Saudi Arabia</p>
         <ul>
-          <li>5G and 4G device testing and firmware verification.</li>
-          <li>Compatibility testing and data speed validation on live networks.</li>
-          <li>CPE software upgrades, SIM lock, PIN lock and cell lock testing.</li>
-          <li>Obtained certification and technical acceptance from STC, Zain and Mobily.</li>
+          <li data-i18n="job3.b1">5G and 4G device testing and firmware verification.</li>
+          <li data-i18n="job3.b2">Compatibility testing and data speed validation on live networks.</li>
+          <li data-i18n="job3.b3">CPE software upgrades, SIM lock, PIN lock and cell lock testing.</li>
+          <li data-i18n="job3.b4">Obtained certification and technical acceptance from STC, Zain and Mobily.</li>
         </ul>
       </div>
 
       <div class="job">
-        <span class="date">Aug 2020 – Oct 2021</span>
-        <h3>Test Engineer</h3>
-        <p class="company">Marquis Technologies · Saudi Arabia</p>
+        <span class="date" data-i18n="job4.date">Aug 2020 – Oct 2021</span>
+        <h3 data-i18n="job4.title">Test Engineer</h3>
+        <p class="company" data-i18n="job4.company">Marquis Technologies · Saudi Arabia</p>
         <ul>
-          <li>Pre-launch testing of handsets, chipsets, prototypes, FWA/CPE, MiFi and IoT devices.</li>
-          <li>Mobility testing for 2G/3G/4G, VoLTE and VoWiFi, including inter-RAT handovers.</li>
-          <li>Chipset and NB-IoT testing on MediaTek; CBS testing to CITC requirements.</li>
-          <li>Field and beta testing projects with reporting to R&amp;D teams.</li>
+          <li data-i18n="job4.b1">Pre-launch testing of handsets, chipsets, prototypes, FWA/CPE, MiFi and IoT devices.</li>
+          <li data-i18n="job4.b2">Mobility testing for 2G/3G/4G, VoLTE and VoWiFi, including inter-RAT handovers.</li>
+          <li data-i18n="job4.b3">Chipset and NB-IoT testing on MediaTek; CBS testing to CITC requirements.</li>
+          <li data-i18n="job4.b4">Field and beta testing projects with reporting to R&amp;D teams.</li>
         </ul>
       </div>
 
       <div class="job">
-        <span class="date">Dec 2016 – Dec 2019</span>
-        <h3>4G Radio Network Optimizer</h3>
-        <p class="company">ZTE · Pakistan</p>
+        <span class="date" data-i18n="job5.date">Dec 2016 – Dec 2019</span>
+        <h3 data-i18n="job5.title">4G Radio Network Optimizer</h3>
+        <p class="company" data-i18n="job5.company">ZTE · Pakistan</p>
         <ul>
-          <li>Monitored LTE KPIs: ERAB/RRC setup success, CSFB, cell throughput.</li>
-          <li>Set KPI benchmarks for optimization and operational maintenance.</li>
-          <li>Drive testing on VIP routes and handling of customer complaints.</li>
-          <li>Feature testing, parameter trials and benchmarking.</li>
+          <li data-i18n="job5.b1">Monitored LTE KPIs: ERAB/RRC setup success, CSFB, cell throughput.</li>
+          <li data-i18n="job5.b2">Set KPI benchmarks for optimization and operational maintenance.</li>
+          <li data-i18n="job5.b3">Drive testing on VIP routes and handling of customer complaints.</li>
+          <li data-i18n="job5.b4">Feature testing, parameter trials and benchmarking.</li>
         </ul>
       </div>
 
       <div class="job">
-        <span class="date">Mar 2011 – Dec 2016</span>
-        <h3>Assistant Manager – LTE RF Optimization Engineer</h3>
-        <p class="company">Etisalat (PTCL) · Pakistan</p>
+        <span class="date" data-i18n="job6.date">Mar 2011 – Dec 2016</span>
+        <h3 data-i18n="job6.title">Assistant Manager – LTE RF Optimization Engineer</h3>
+        <p class="company" data-i18n="job6.company">Etisalat (PTCL) · Pakistan</p>
         <ul>
-          <li>Full cluster optimization with hard and soft parameter tuning.</li>
-          <li>Single site verification of LTE eNodeBs after rollout.</li>
-          <li>Drive test log analysis to find root causes of network issues.</li>
-          <li>LTE pre-launch KPI analysis across major cities.</li>
+          <li data-i18n="job6.b1">Full cluster optimization with hard and soft parameter tuning.</li>
+          <li data-i18n="job6.b2">Single site verification of LTE eNodeBs after rollout.</li>
+          <li data-i18n="job6.b3">Drive test log analysis to find root causes of network issues.</li>
+          <li data-i18n="job6.b4">LTE pre-launch KPI analysis across major cities.</li>
         </ul>
       </div>
 
@@ -138,26 +166,34 @@
   </section>
 
   <!-- STEP 6: Skills, grouped in cards -->
-  <section id="skills" class="section">
-    <h2>Skills</h2>
+  <section id="skills" class="section reveal">
+    <h2 data-i18n="skills.title">Skills</h2>
     <div class="cards">
       <div class="card">
-        <h3>Wireless Technologies</h3>
+        <div class="card-icon">📡</div>
+        <h3 data-i18n="skills.wireless">Wireless Technologies</h3>
         <ul class="tags">
           <li>5G NR</li><li>LTE</li><li>LTE-Advanced</li><li>VoNR</li><li>VoLTE</li>
           <li>VoWiFi</li><li>NB-IoT</li><li>RCS</li><li>WCDMA</li><li>GSM</li>
         </ul>
       </div>
       <div class="card">
-        <h3>Testing &amp; Optimization</h3>
+        <div class="card-icon">🧪</div>
+        <h3 data-i18n="skills.testing">Testing &amp; Optimization</h3>
         <ul class="tags">
-          <li>Mobile Device Testing</li><li>Network Validation</li><li>RF Optimization</li>
-          <li>Drive Testing</li><li>KPI Monitoring</li><li>Log Analysis</li>
-          <li>Benchmarking</li><li>Troubleshooting</li>
+          <li data-i18n="skills.t1">Mobile Device Testing</li>
+          <li data-i18n="skills.t2">Network Validation</li>
+          <li data-i18n="skills.t3">RF Optimization</li>
+          <li data-i18n="skills.t4">Drive Testing</li>
+          <li data-i18n="skills.t5">KPI Monitoring</li>
+          <li data-i18n="skills.t6">Log Analysis</li>
+          <li data-i18n="skills.t7">Benchmarking</li>
+          <li data-i18n="skills.t8">Troubleshooting</li>
         </ul>
       </div>
       <div class="card">
-        <h3>Tools</h3>
+        <div class="card-icon">🛠️</div>
+        <h3 data-i18n="skills.tools">Tools</h3>
         <ul class="tags">
           <li>QXDM</li><li>XCAL</li><li>ATLAS</li><li>HiDS</li><li>PlotPro</li><li>Wave</li>
           <li>NFA</li><li>Purple-4</li><li>Bambi Viewer</li><li>iOS Toolbox</li><li>Radar</li>
@@ -165,7 +201,8 @@
         </ul>
       </div>
       <div class="card">
-        <h3>Programming</h3>
+        <div class="card-icon">💻</div>
+        <h3 data-i18n="skills.programming">Programming</h3>
         <ul class="tags">
           <li>Python</li><li>C</li><li>C++</li>
         </ul>
@@ -174,26 +211,28 @@
   </section>
 
   <!-- STEP 7: Education -->
-  <section id="education" class="section">
-    <h2>Education</h2>
+  <section id="education" class="section reveal">
+    <h2 data-i18n="edu.title">Education</h2>
     <div class="cards">
       <div class="card">
-        <span class="date">Aug 2022 – Dec 2024</span>
-        <h3>Master's in Wireless Communication &amp; RF Systems</h3>
-        <p class="company">Tampere University · Finland</p>
+        <div class="card-icon">🎓</div>
+        <span class="date" data-i18n="edu1.date">Aug 2022 – Dec 2024</span>
+        <h3 data-i18n="edu1.title">Master's in Wireless Communication &amp; RF Systems</h3>
+        <p class="company" data-i18n="edu1.school">Tampere University · Finland</p>
       </div>
       <div class="card">
-        <span class="date">Jun 2006 – Aug 2010</span>
-        <h3>BE Telecommunication Engineering</h3>
-        <p class="company">NUML University · Islamabad, Pakistan</p>
+        <div class="card-icon">🎓</div>
+        <span class="date" data-i18n="edu2.date">Jun 2006 – Aug 2010</span>
+        <h3 data-i18n="edu2.title">BE Telecommunication Engineering</h3>
+        <p class="company" data-i18n="edu2.school">NUML University · Islamabad, Pakistan</p>
       </div>
     </div>
   </section>
 
   <!-- STEP 8: Contact -->
-  <section id="contact" class="section contact">
-    <h2>Get in Touch</h2>
-    <p>Open to opportunities in 5G, device testing and RF engineering.</p>
+  <section id="contact" class="section contact reveal">
+    <h2 data-i18n="contact.title">Get in Touch</h2>
+    <p data-i18n="contact.text">Open to opportunities in 5G, device testing and RF engineering.</p>
     <div class="contact-links">
       <a class="btn btn-primary" href="mailto:jellaniraja303@gmail.com">✉️ jellaniraja303@gmail.com</a>
       <!-- TODO: replace this link with his real LinkedIn profile URL -->
@@ -205,6 +244,8 @@
     <p>&copy; <span id="year"></span> Ghulam Jellani</p>
   </footer>
 
+  <!-- translations.js must load before script.js, because script.js uses it -->
+  <script src="translations.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

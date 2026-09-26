@@ -1,24 +1,55 @@
-/* Colors are stored in variables so you can change the whole theme in one place.
-   Navy + burgundy match the suit and tie in the profile photo. */
+/* ===================================================================
+   COLORS
+   All colors are variables. Light mode is the default (:root).
+   Dark mode replaces them when <html data-theme="dark">.
+   =================================================================== */
 :root {
-  --bg: #f7f8fb;
+  --bg: #f6f7fb;
   --surface: #ffffff;
-  --navy: #1b2a4a;
-  --accent: #9b2335;
   --text: #2b3445;
+  --heading: #1b2a4a;
   --muted: #667085;
   --border: #e4e7ec;
+  --accent: #9b2335;
+  --accent-2: #2f5bd3;
+  --tag-bg: #eef1f7;
+  --blob-1: rgba(47, 91, 211, 0.18);
+  --blob-2: rgba(155, 35, 53, 0.16);
+  --shadow: 0 12px 30px rgba(27, 42, 74, 0.08);
 }
 
+[data-theme="dark"] {
+  --bg: #0d1220;
+  --surface: #161d2f;
+  --text: #d5dbe8;
+  --heading: #f1f4fa;
+  --muted: #95a0b8;
+  --border: #253049;
+  --accent: #ef6b7f;
+  --accent-2: #7aa2ff;
+  --tag-bg: #1f2940;
+  --blob-1: rgba(122, 162, 255, 0.16);
+  --blob-2: rgba(239, 107, 127, 0.14);
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* ===================================================================
+   BASICS
+   =================================================================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html,
+body {
+  overflow-x: clip; /* hide the parts of the blobs that stick out past the screen edge */
+}
+
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 70px; /* so the sticky navbar doesn't cover section titles */
+  scroll-padding-top: 80px; /* so the sticky navbar doesn't cover section titles */
 }
 
 body {
@@ -26,6 +57,7 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
 }
 
 a {
@@ -33,48 +65,159 @@ a {
   text-decoration: none;
 }
 
-/* ---------- Navigation bar ---------- */
+/* ===================================================================
+   NAVIGATION BAR — same color as the page, slightly see-through
+   =================================================================== */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 10;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 1.5rem;
   padding: 1rem 2rem;
-  background: var(--navy);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(12px); /* blurs what scrolls underneath */
+  border-bottom: 1px solid var(--border);
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--heading);
+  margin-right: auto; /* pushes everything else to the right */
 }
 
 .logo span {
-  color: #e8a0ab;
+  color: var(--accent);
 }
 
 .navbar nav a {
-  color: #d6dcea;
-  margin-left: 1.5rem;
+  color: var(--muted);
+  margin-left: 1.4rem;
   font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.2s;
 }
 
-.navbar nav a:hover {
-  color: #fff;
+.navbar nav a:hover,
+.navbar nav a.active {
+  color: var(--heading);
 }
 
-/* ---------- Hero ---------- */
+/* small line under the active link */
+.navbar nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.toggles {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.toggle:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+/* show the moon in light mode, the sun in dark mode */
+.icon-sun { display: none; }
+[data-theme="dark"] .icon-sun { display: inline; }
+[data-theme="dark"] .icon-moon { display: none; }
+
+/* ===================================================================
+   HERO
+   =================================================================== */
 .hero {
-  max-width: 1000px;
+  position: relative;
+  max-width: 1100px;
   margin: 0 auto;
-  min-height: 80vh;
+  min-height: calc(100vh - 73px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 3rem;
   padding: 3rem 2rem;
+}
+
+/* the blurry floating circles */
+.blob {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(70px);
+  animation: float 12s ease-in-out infinite alternate;
+}
+
+.blob-1 {
+  width: 420px;
+  height: 420px;
+  background: var(--blob-1);
+  top: 5%;
+  left: -10%;
+}
+
+.blob-2 {
+  width: 380px;
+  height: 380px;
+  background: var(--blob-2);
+  bottom: 0;
+  right: -5%;
+  animation-delay: -6s;
+}
+
+@keyframes float {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(40px, -30px) scale(1.1); }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+
+/* the green "online" dot that pulses */
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  70%  { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
 }
 
 .eyebrow {
@@ -84,22 +227,46 @@ a {
 }
 
 .hero h1 {
-  font-size: 3rem;
-  color: var(--navy);
-  line-height: 1.1;
-  margin: 0.3rem 0 0.6rem;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.05;
+  margin: 0.3rem 0 0.8rem;
+}
+
+/* text filled with a color gradient */
+.gradient-text {
+  background: linear-gradient(90deg, var(--heading), var(--accent-2) 55%, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .subtitle {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text);
+  color: var(--heading);
 }
 
 .tagline {
   color: var(--muted);
-  margin: 0.8rem 0 1.8rem;
-  max-width: 480px;
+  margin: 0.8rem 0 1.2rem;
+  max-width: 500px;
+}
+
+.hero-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.8rem;
+}
+
+.hero-chips li {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  color: var(--accent-2);
+  background: color-mix(in srgb, var(--accent-2) 12%, transparent);
 }
 
 .hero-buttons {
@@ -113,95 +280,141 @@ a {
   color: var(--muted);
 }
 
-/* The photo is cropped into a circle with object-fit + border-radius */
-.profile {
-  width: 300px;
-  height: 300px;
+/* spinning colored ring around the photo */
+.photo-ring {
+  position: relative;
   flex-shrink: 0;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  padding: 6px;
+  display: grid;
+  place-items: center;
+}
+
+.photo-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent), var(--accent-2), var(--accent));
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.profile {
+  position: relative; /* sits above the ring */
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center 20%;
   border-radius: 50%;
-  border: 6px solid var(--surface);
-  box-shadow: 0 0 0 3px var(--navy), 0 20px 40px rgba(27, 42, 74, 0.25);
+  border: 6px solid var(--bg);
 }
 
-/* ---------- Buttons ---------- */
+/* ===================================================================
+   BUTTONS
+   =================================================================== */
 .btn {
   display: inline-block;
   padding: 0.75rem 1.6rem;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: 600;
-  transition: 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 70%, var(--accent-2)));
   color: #fff;
-}
-
-.btn-primary:hover {
-  background: #7d1b2a;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 .btn-outline {
-  border: 2px solid var(--navy);
-  color: var(--navy);
+  border: 2px solid var(--border);
+  color: var(--heading);
 }
 
 .btn-outline:hover {
-  background: var(--navy);
-  color: #fff;
+  border-color: var(--heading);
 }
 
-/* ---------- Sections ---------- */
+/* ===================================================================
+   SECTIONS
+   =================================================================== */
 .section {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 5rem 2rem;
 }
 
 .section h2 {
-  font-size: 2rem;
-  color: var(--navy);
+  font-size: 2.2rem;
+  color: var(--heading);
   margin-bottom: 2rem;
 }
 
-/* little red line under each section title */
+/* little gradient line under each section title */
 .section h2::after {
   content: "";
   display: block;
   width: 60px;
   height: 4px;
   margin-top: 0.5rem;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
   border-radius: 2px;
+}
+
+/* fade-in animation, started by script.js when the section appears */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.js .reveal.visible {
+  opacity: 1;
+  transform: none;
 }
 
 .about-text {
   font-size: 1.1rem;
-  max-width: 760px;
+  max-width: 780px;
 }
 
-/* ---------- Stats ---------- */
+/* ===================================================================
+   STATS
+   =================================================================== */
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 .stat {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.2rem;
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
   text-align: center;
+  box-shadow: var(--shadow);
 }
 
 .stat strong {
   display: block;
-  font-size: 2rem;
-  color: var(--accent);
+  font-size: 2.2rem;
+  line-height: 1.2;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .stat span {
@@ -209,46 +422,76 @@ a {
   font-size: 0.9rem;
 }
 
-/* ---------- Experience timeline ---------- */
+/* ===================================================================
+   EXPERIENCE TIMELINE
+   =================================================================== */
 .timeline {
-  border-left: 3px solid var(--border);
-  padding-left: 2rem;
+  position: relative;
+  padding-left: 2.2rem;
+}
+
+/* the vertical line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(var(--accent), var(--accent-2), transparent);
 }
 
 .job {
   position: relative;
-  margin-bottom: 2.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.job:hover {
+  transform: translateX(6px);
+  box-shadow: var(--shadow);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
 }
 
 /* the dot on the timeline line */
 .job::before {
   content: "";
   position: absolute;
-  left: calc(-2rem - 9px);
-  top: 0.35rem;
-  width: 15px;
-  height: 15px;
+  left: calc(-2.2rem + 1px);
+  top: 1.7rem;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--accent);
   border: 3px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--accent);
 }
 
 .date {
-  font-size: 0.85rem;
+  display: inline-block;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  padding: 0.15rem 0.6rem;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
 }
 
 .job h3,
 .card h3 {
-  color: var(--navy);
+  color: var(--heading);
   font-size: 1.15rem;
 }
 
 .company {
   color: var(--muted);
   font-weight: 500;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .job ul {
@@ -259,24 +502,48 @@ a {
   margin-bottom: 0.2rem;
 }
 
-/* ---------- Cards (skills + education) ---------- */
+.job li::marker {
+  color: var(--accent);
+}
+
+/* ===================================================================
+   CARDS (skills + education)
+   =================================================================== */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
 }
 
 .card {
+  position: relative;
+  overflow: hidden;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
+  border-radius: 16px;
+  padding: 1.6rem;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
+/* colored line on top of each card */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(27, 42, 74, 0.1);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+.card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
 }
 
 .card h3 {
@@ -291,14 +558,22 @@ a {
 }
 
 .tags li {
-  background: #eef1f7;
-  color: var(--navy);
+  background: var(--tag-bg);
+  color: var(--heading);
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
   font-size: 0.85rem;
+  transition: background 0.2s, color 0.2s;
 }
 
-/* ---------- Contact ---------- */
+.tags li:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ===================================================================
+   CONTACT + FOOTER
+   =================================================================== */
 .contact {
   text-align: center;
 }
@@ -318,41 +593,44 @@ a {
 footer {
   text-align: center;
   padding: 2rem;
-  background: var(--navy);
-  color: #d6dcea;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
 }
 
-/* ---------- Mobile: stack things on narrow screens ---------- */
-@media (max-width: 760px) {
+/* ===================================================================
+   MOBILE: stack things on narrow screens
+   =================================================================== */
+@media (max-width: 800px) {
   .navbar {
-    flex-direction: column;
-    gap: 0.4rem;
+    flex-wrap: wrap;
+    gap: 0.6rem;
     padding: 0.8rem 1rem;
   }
 
   .navbar nav {
+    order: 3; /* put the links on their own row, under the logo and buttons */
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 0.3rem 1rem;
   }
 
   .navbar nav a {
-    margin: 0 0.5rem;
+    margin: 0;
+    font-size: 0.85rem;
   }
 
   html {
-    scroll-padding-top: 100px;
+    scroll-padding-top: 110px;
   }
 
   .hero {
     flex-direction: column-reverse;
     text-align: center;
     gap: 2rem;
-    padding: 2rem 1rem;
-  }
-
-  .hero h1 {
-    font-size: 2.2rem;
+    padding: 2rem 1rem 3rem;
+    min-height: auto;
   }
 
   .tagline {
@@ -360,24 +638,51 @@ footer {
     margin-right: auto;
   }
 
+  .hero-chips,
   .hero-buttons {
     justify-content: center;
   }
 
-  .profile {
-    width: 200px;
-    height: 200px;
+  .photo-ring {
+    width: 210px;
+    height: 210px;
   }
 
   .section {
-    padding: 3rem 1rem;
+    padding: 3.5rem 1rem;
   }
 
   .stats {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .timeline {
+    padding-left: 1.6rem;
+  }
+
+  .job {
+    padding: 1.2rem;
+  }
+
+  .job::before {
+    left: calc(-1.6rem + 1px);
+  }
+
   .contact-links .btn {
     word-break: break-all;
+  }
+}
+
+/* People who turned off animations in their system settings get none */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }
